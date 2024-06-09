@@ -6,12 +6,12 @@ namespace Test
     {
         public int CalculateHighestFrequency(string text) 
         {
-            return GetAllWords(text)[0].Frequency;
+            return SortWordsIntoFrequencyOrder(text)[0].Frequency;
         }
 
         public int CalculateFrequencyForWord(string text, string word)
         {
-            var list = GetAllWords(text);
+            var list = SortWordsIntoFrequencyOrder(text);
             var index = list.FindIndex(i => i.Word.Equals(word));
 
             if (index >= 0)
@@ -26,7 +26,7 @@ namespace Test
 
         public IList<IWordFrequency> CalculateMostFrequentWords(string text, int number)
         {
-            var sortedList = GetAllWords(text);
+            var sortedList = SortWordsIntoFrequencyOrder(text);
 
             if (sortedList.Count < number)
             {
@@ -39,10 +39,10 @@ namespace Test
             }
         }
 
-        public static List<IWordFrequency> GetAllWords(string text)
+        public List<IWordFrequency> SortWordsIntoFrequencyOrder(string text)
         {
             var splitWords = text.Split(" ");
-            var words = new List<IWordFrequency>();
+            var sortedList = new List<IWordFrequency>();
 
             if (!Regex.IsMatch(String.Join(string.Empty, splitWords), @"^[a-zA-Z]+$"))
             {
@@ -51,18 +51,18 @@ namespace Test
 
             foreach (var word in splitWords)
             {
-                var index = words.FindIndex(i => i.Word.Equals(word.ToLower()));
+                var index = sortedList.FindIndex(i => i.Word.Equals(word.ToLower()));
                 if (index >= 0)
                 {
-                    words[index].Frequency += 1;
+                    sortedList[index].Frequency += 1;
                 }
                 else
                 {
-                    words.Add(new WordFrequency(word.ToLower(), 1));
+                    sortedList.Add(new WordFrequency(word.ToLower(), 1));
                 }
             }
 
-            return words.OrderBy(i => i.Word).OrderByDescending(i => i.Frequency).ToList();
+            return sortedList.OrderBy(i => i.Word).OrderByDescending(i => i.Frequency).ToList();
         }
     }
 }
