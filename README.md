@@ -10,6 +10,7 @@ Next it will loop over all of the split words.
 Within the loop it will check to see if the current word is in the sorted list:
 - If it is, then it will add 1 to the Frequency property of the WordFrequency object.
 - If it is not, then it will add that WordFrequency object to the list.
+
 The method then returns the sortedList, ordering alphabetically first based on the Word property, and then it will order by the Frequency descending.
 
 ## CalculateHighestFrequency(string text)
